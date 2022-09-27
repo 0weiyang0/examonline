@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>教师列表</title>
+    <th:block th:include="common::link"></th:block>
+    <link type="text/css" rel="stylesheet" href="css/teacher.css" />
+    <script src="js/teacher.js"></script>
+</head>
+  <body>
+    <div th:replace="common::header"></div>
+    <div th:replace="common::nav"></div>
+    <div class="content-box">
+        <span class="input-group input-box">
+            <span class="input-group-addon glyphicon glyphicon-hand-right" ></span>
+            <input id="keyWord" type="text" class="form-control" placeholder="关键字">
+        </span>
+        <button id="query" type="button"  onclick="teacher.toQueryTeacher()" class="btn btn-default btn-lg btn btn-success btn btn-default btn-sm">
+            <span class="glyphicon glyphicon-zoom-in"></span> 搜索
+        </button>
+        <button id='clearQuery'   type="button"   onclick="teacher.toClearTeacher()"  class="btn btn-default btn-lg btn btn-success btn btn-default btn-sm">
+            <span class="glyphicon glyphicon-zoom-out"></span> 取消搜索
+        </button>
+        <span class="right">
+            <button type="button"  class="btn btn-default  btn btn-success " onclick="teacher.toAdd()">
+            <span class="glyphicon glyphicon-plus"></span> 新建老师
+        </button>
+            <button type="button"  class="btn btn-default  btn btn-success " onclick="teacher.batchDeletion()">
+            <span class="glyphicon glyphicon-trash"></span> 批量删除
+        </button>
+        <button  type="button"  class="btn btn-default btn btn-success "  onclick="teacher.importTeachers()">
+            <span class="glyphicon glyphicon-log-in"></span> 批量导入
+        </button>
+            <button  type="button"  class="btn btn-default btn btn-success " >
+                <a href="teacher/exportTeachers">
+                     <span class="glyphicon glyphicon-log-in"></span> 批量导出
+                </a>
+        </button>
+        </span>
+        <div id="pageTemplate">
+            <table class="table table-bordered table-box" id="teacherGrid">
+                <thead>
+                <tr>
+                    <td><input type="checkbox" onclick="teacher.toCheckAll()"></td>
+                    <td>序号</td>
+                    <td>教师名称</td>
+                    <td>助记码</td>
+                    <td>创建时间</td>
+                    <td width="30%">操作</td>
+                </tr>
+                </thead>
+                <tbody>
+                <th:block th:if="${pageVO.data == null || pageVO.data.size() == 0}">
+                    <tr>
+                        <td align="center" colspan="6">没有搜索到</td>
+                    </tr>
+                </th:block>
+                <th:block th:unless="${pageVO.data == null || pageVO.data.size() == 0}">
+                    <tr th:each="teacher:${pageVO.data}">
+                        <td><input type="checkbox" th:value="${teacher.id}" id="teacher-id"></td>
+                        <td th:text="${teacherStat.index+1}"></td>
+                        <td id='search-tname' th:text="${teacher.tname}"></td>
+                        <td th:text="${teacher.mnemonicCode}"></td>
+                        <td th:text="${#dates.format(teacher.createTime,'yyyy-MM-dd HH:mm')}"></td>
+                        <td>
+                            <button class="btn btn-warning glyphicon glyphion-pencil"  th:onclick="teacher.toEdit([[${teacher.id}]])">
+                                修改
+                            </button>
+                            <button class="btn btn-danger glyphicon glyphion-trash">删除</button>
+                        </td>
+                    </tr>
+                </th:block>
+                </tbody>
+            </table>
+            <nav>
+                <ul class="pagination">
+                    <li th:if="${pageVO.curr==1}" class="disabled">
+                        <a href="javascript:void(0)" ><span >&laquo;</span></a>
+                    </li>
+                    <li th:unless="${pageVO.curr==1}">
+                        <a href="javascript:void(0)" th:onclick="teacher.toPageTeacherQuery('[[${pageVO.curr-1}]]')"><span >&laquo;</span></a>
+                    </li>
+
+                    <li th:each="page:${#numbers.sequence(pageVO.startPage,pageVO.endPage)}" th:class="${page==pageVO.curr}?'active':''">
+                        <a href="javascript:void(0);" th:text="${page}" th:onclick="teacher.toPageTeacherQuery('[[${page}]]')"></a>
+                    </li>
+                    <li th:if="${pageVO.curr == pageVO.max}" class="disabled">
+                        <a href="javascript:void(0)" ><span >&raquo;</span></a>
+                    </li>
+                    <li th:unless="${pageVO.curr == pageVO.max}">
+                        <a href="javascript:void(0)" th:onclick="teacher.toPageTeacherQuery([[${pageVO.curr+1}]])" ><span >&raquo;</span></a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+        <!-- 一个隐藏的窗口 接下来可以给【新建教师,编辑老师，导入老师】信息使用 -->
+        <div class="modal fade" id="teacher-modal" tabindex="-1">
+            <div class="modal-dialog" >
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" >
+                            <span >&times;</span>
+                        </button>
+                        <h4 class="modal-title" id="teacher-modal-title">...</h4>
+                    </div>
+
+                    <div class="modal-body" id="teacher-modal-body">
+                        ...
+                    </div>
+
+                    <div class="modal-footer" id="teacher-modal-footer">
+                        <button type="button"
+                                class="btn btn-default" data-dismiss="modal">关闭</button>
+                        <button type="button"
+                                class="btn btn-primary" id="teacher-modal-submit" >提交</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div th:replace="common::footer"></div>
+  </body>
+</html>
