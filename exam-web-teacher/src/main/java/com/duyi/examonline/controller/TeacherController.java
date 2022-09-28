@@ -151,7 +151,7 @@ public class TeacherController {
         HttpHeaders headers = new HttpHeaders();
         //说明作为一个附属让用户下载，它还有一个属性值，是inline，说明直接展示在浏览器中
         //而attachment 的意思是作为附件下载
-        headers.add("content-disposition","attachment;filename=teachers.xlsx");
+        headers.add("cosntent-dispoition","attachment;filename=teachers.xlsx");
         headers.add("content-type","application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
         return new ResponseEntity<byte[]>(bs,headers, HttpStatus.OK);
     }

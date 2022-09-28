@@ -32,7 +32,6 @@ teacher.toAdd = function (){
             var param = {
                 tname:$('#update-form-tname').val()
             }
-            alert(param.tname);
             $.post("teacher/addTeacher",param,function (f){
                 if (f == true){
                     $('#teacher-modal').modal('hide');

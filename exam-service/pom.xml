@@ -5,48 +5,43 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.duyi.examonline</groupId>
-    <artifactId>exam-web-teacher</artifactId>
+    <artifactId>exam-service</artifactId>
     <version>1.0-SNAPSHOT</version>
-
     <parent>
         <artifactId>exam-parent</artifactId>
         <groupId>com.duyi.examonline</groupId>
         <version>1.0-SNAPSHOT</version>
     </parent>
-    <properties>
-        <maven.compiler.source>8</maven.compiler.source>
-        <maven.compiler.target>8</maven.compiler.target>
-    </properties>
     <dependencies>
+        <dependency>
+            <groupId>com.duyi.examonline</groupId>
+            <artifactId>exam-domain</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
         <dependency>
             <groupId>com.duyi.examonline</groupId>
             <artifactId>exam-config</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
-        <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>javax.servlet-api</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.duyi.examonline</groupId>
-            <artifactId>exam-service</artifactId>
-            <version>1.0-SNAPSHOT</version>
-        </dependency>
+<!--        hutool 工具生成助记码    -->
         <dependency>
             <groupId>cn.hutool</groupId>
             <artifactId>hutool-all</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.apache.poi</groupId>
-            <artifactId>poi</artifactId>
+            <groupId>com.belerweb</groupId>
+            <artifactId>pinyin4j</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.apache.poi</groupId>
-            <artifactId>poi-ooxml</artifactId>
+            <groupId>com.duyi.examonline</groupId>
+            <artifactId>exam-dao</artifactId>
+            <version>1.0-SNAPSHOT</version>
         </dependency>
-        <dependency>
-            <groupId>com.github.pagehelper</groupId>
-            <artifactId>pagehelper</artifactId>
-        </dependency>
+
     </dependencies>
+    <properties>
+        <maven.compiler.source>8</maven.compiler.source>
+        <maven.compiler.target>8</maven.compiler.target>
+    </properties>
+
 </project>
