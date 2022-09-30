@@ -80,4 +80,9 @@ public class StudentServiceImpl implements StudentService {
         }
         return true;
     }
+
+    @Override
+    public List<Student> findStudentsByClasses(Map condition) {
+        return studentMapper.findStudentsByClasses(condition);
+    }
 }

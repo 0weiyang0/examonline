@@ -28,6 +28,7 @@ public interface StudentService {
     PageVO find(int pageNo, Map condition);
 
     boolean addStudent(Map allParam);
+    List<Student> findStudentsByClasses(Map condition);
 
 
 }

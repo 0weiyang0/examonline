@@ -1,5 +1,7 @@
 package com.duyi.examonline.dao;
 import com.duyi.examonline.domain.Student;
+import org.apache.ibatis.annotations.Param;
+
 import java.util.List;
 import java.util.Map;
 
@@ -15,6 +17,8 @@ public interface StudentMapper {
      * @return
      */
     List<Map> findClasses(Map condition);
+
+    List<Student> findStudentsByClasses(Map condition);
 
     int insertSelective(Student record);
 
